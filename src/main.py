@@ -5,6 +5,8 @@ import os
 os.mkdir("testdir")
 subprocess.run(["uv", "venv", ".venv"], cwd="./testdir")
 subprocess.run(["uv", "pip", "install", "markupsafe"], cwd="./testdir")
-os.system("rmdir /S /Q testdir")
+res = os.system("rmdir /S /Q testdir")
+if res != 0:
+    raise RuntimeError("rm failed")
 
 print(markupsafe.escape("Hello, <world>!"))
